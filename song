@@ -1,0 +1,113 @@
+use_bpm 80
+
+define :verse do
+  use_synth :hollow
+  play chord(:f, :major)
+  sleep (2)
+  play chord(:f, :dom7)
+  sleep (2)
+  play chord(:Bb, :major7)
+  sleep (2)
+  play chord(:Bb, :minor7)
+  sleep (2)
+  play chord(:A, :minor7)
+  sleep (2)
+  play chord(:D, :minor7)
+  sleep (2)
+  play chord(:G, :minor7)
+  sleep (2)
+  play chord(:C, :dom7)
+  sleep (2)
+  
+  
+end
+
+
+define :chorus do
+  drum
+  use_synth :sine
+  play chord(:Bb, :major)
+  play :Bb2
+  sleep (1.5)
+  play chord(:C, :dom7)
+  play :C2
+  sleep (2.5)
+  
+  play chord(:Db, :dim7)
+  play :Db2
+  sleep (1.5)
+  play chord(:D, :minor7)
+  play :D2
+  sleep (2.5)
+  play chord(:G, :minor7)
+  play :Bb2
+  sleep (1.5)
+  play chord(:G, :minor7)
+  sleep (2.5)
+  play chord(:G, :minor7)
+  play :G2
+  sleep (1.5)
+  play chord(:G, :minor7)
+  play :G2
+  sleep (2.5)
+  
+end
+
+define :ending do
+  skit
+  use_synth :sine
+  play chord(:F, :major)
+  play :F2
+  sleep (2)
+  play chord(:E, :dim7)
+  play :E2
+  sleep (2)
+  play chord(:D, :minor7)
+  play :D2
+  sleep (2)
+  play chord(:C, :dom7)
+  play :C2
+  sleep (2)
+  play chord(:Bb, :major7)
+  play :Bb1
+  sleep (2)
+  play chord(:A, :minor7)
+  play :A1
+  sleep (2)
+  play chord(:G, :minor7)
+  play :G1
+  sleep (2)
+  play chord(:F, :major)
+  play :F1
+  sleep (2)
+  
+end
+
+define :drum do
+  in_thread do
+    4.times do
+      sleep 3
+      sample :drum_cymbal_closed
+      sleep 1
+    end
+  end
+end
+
+define :skit do
+  in_thread do
+    32.times do
+      play scale(:f4, :major_pentatonic, num_octaves: 1).choose, release: 1, amp: rand
+      sleep 0.5
+    end
+  end
+end
+
+5.times do
+  ending
+  verse
+  chorus
+  verse
+  chorus
+  ending
+  ending
+end
